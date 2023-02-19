@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    registry = "192.168.1.81:5000/justme/myweb"
+    registry = "subbaraju7899/myweb"
     dockerImage = ""
   }
 
@@ -26,20 +26,15 @@ pipeline {
     stage('Push Image') {
       steps{
         script {
-          docker.withRegistry( "" ) {
-            dockerImage.push()
+         withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
+            sh 'docker login -u subbaraju7899 -p ${dockerhubpwd}'            
           }
+          sh 'dockerImage.push()'
         }
       }
     }
 
-    stage('Deploy App') {
-      steps {
-        script {
-          kubernetesDeploy(configs: "myweb.yaml", kubeconfigId: "mykubeconfig")
-        }
-      }
-    }
+    
 
   }
 
