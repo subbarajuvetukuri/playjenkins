@@ -16,8 +16,8 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: subbaraju7899/mywebapp:8
-        imagePullPolicy: Always
+      - image: subbaraju7899/mywebapp:9
+        imagePullPolicy: Never
         name: myweb
 
 ---
