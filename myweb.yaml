@@ -16,7 +16,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: subbaraju7899/mywebapp:17
+      - image: 192.168.17.130:5000/myweb:18
         imagePullPolicy: Always
         name: myweb
 
