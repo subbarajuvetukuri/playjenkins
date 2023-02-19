@@ -16,8 +16,8 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: 192.168.17.130:5000/myweb:18
-        imagePullPolicy: IfNotPresent
+      - image: 192.168.17.130:5000/myweb:19
+        imagePullPolicy: Never
         name: myweb
 
 ---
