@@ -16,7 +16,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: subbaraju7899/mywebapp:21
+      - image: subbaraju7899/mywebapp:28
         imagePullPolicy: IfNotPresent
         name: myweb
 
