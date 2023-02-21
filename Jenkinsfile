@@ -1,41 +1,47 @@
 pipeline {
-
-  environment {
-    registry = "subbaraju7899/myweb"
-    dockerImage = ""
-  }
-
   agent any
 
   stages {
-
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/justmeandopensource/playjenkins.git'
+        git 'https://github.com/subbarajuvetukuri/playjenkins.git'
       }
     }
 
     stage('Build image') {
       steps{
         script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+            sh 'docker build -t subbaraju7899/htmlsite:$BUILD_NUMBER .'
         }
       }
     }
-
     stage('Push Image') {
       steps{
         script {
          withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
-            sh 'docker login -u subbaraju7899 -p ${dockerhubpwd}'            
+            sh 'docker login -u subbaraju7899 -p ${dockerhubpwd}'
+            sh 'docker push subbaraju7899/htmlsite:$BUILD_NUMBER'
           }
-          sh 'dockerImage.push()'
         }
       }
     }
 
-    
-
-  }
+   stage('Deploy to K8s'){
+            steps{
+                script{
+                    sh "chmod +x changeTag.sh"
+                    sh "./changeTag.sh $BUILD_NUMBER"
+                   // kubernetesDeploy (configs: 'myweb.yaml',kubeconfigId: 'mykubeconfig')
+                    withKubeConfig([credentialsId: 'mykubeconfig'])
+                    {
+                        kubectl apply -f myweb.yaml.
+                    }
+                }
+            }
+        }
+        
+        
+        
+    }
 
 }
