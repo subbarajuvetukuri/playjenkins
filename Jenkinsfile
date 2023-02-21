@@ -31,10 +31,7 @@ pipeline {
                 script{
                     sh "chmod +x changeTag.sh"
                     sh "./changeTag.sh $BUILD_NUMBER"
-                   // kubernetesDeploy (configs: 'myweb.yaml',kubeconfigId: 'mykubeconfig')
-                     withKubeConfig(credentialsId: 'mykubeconfig', serverUrl: ''){
-                     sh  'kubectl apply -f myweb.yaml'
-                    }
+                    kubernetesDeploy (configs: 'myweb.yaml',kubeconfigId: 'mykubeconfig')
                 }
             }
         }
