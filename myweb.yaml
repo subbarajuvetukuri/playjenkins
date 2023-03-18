@@ -8,7 +8,10 @@ metadata:
 spec:
   replicas: 2
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2       
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: myweb
@@ -18,7 +21,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: subbaraju7899/htmlsite:66
+      - image: subbaraju7899/htmlsite:67
         imagePullPolicy: IfNotPresent
         name: myweb
 
