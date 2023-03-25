@@ -29,8 +29,6 @@ pipeline {
    stage('Deploy to K8s'){
             steps{
                 script{
-                    sh "chmod +x changeTag.sh"
-                    sh "./changeTag.sh $BUILD_NUMBER"
                     kubernetesDeploy (configs: 'myweb.yaml',kubeconfigId: 'mykubeconfig')
                 }
             }
