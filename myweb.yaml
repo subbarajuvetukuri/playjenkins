@@ -21,7 +21,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: subbaraju7899/htmlsite:$BUILD_NUMBER
+      - image: 192.168.17.130:5000/htmlsite:2.0
         imagePullPolicy: IfNotPresent
         name: myweb
 
